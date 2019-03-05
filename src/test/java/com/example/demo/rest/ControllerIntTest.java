@@ -29,17 +29,7 @@ public class ControllerIntTest {
      */
     @Test
     public void shouldActuallyWork() {
-        UUID randomId = UUID.randomUUID();
-
-        webTestClient.post().uri("/v1/test/" + randomId.toString())
-                .accept(MediaType.APPLICATION_JSON_UTF8)
-                .exchange()
-                .expectStatus().isCreated()
-                .expectBody()
-                .consumeWith(response -> {
-                    assertThat(response.getResponseBody()).isNotNull();
-                    assertThat(new String(response.getResponseBody(), StandardCharsets.UTF_8)).isEqualTo(randomId.toString());
-                });
+        callTestEndpointAndAssertResponse();
     }
 
     /**
@@ -51,6 +41,10 @@ public class ControllerIntTest {
         //the standard WebFluxSecurityConfiguration has csrf enabled...
         webTestClient = webTestClient.mutateWith(csrf());
 
+        callTestEndpointAndAssertResponse();
+    }
+
+    private void callTestEndpointAndAssertResponse() {
         UUID randomId = UUID.randomUUID();
 
         webTestClient.post().uri("/v1/test/" + randomId.toString())
@@ -63,6 +57,5 @@ public class ControllerIntTest {
                     assertThat(new String(response.getResponseBody(), StandardCharsets.UTF_8)).isEqualTo(randomId.toString());
                 });
     }
-
 
 }
