@@ -43,7 +43,7 @@ public class ControllerIntTest {
     }
 
     /**
-     * Instead WebFluxSecurityConfiguration is in use, which has scrf enabled + requires authenticated user.
+     * Instead WebFluxSecurityConfiguration is in use, which has csrf enabled + requires authenticated user.
      */
     @Test
     @WithMockUser
